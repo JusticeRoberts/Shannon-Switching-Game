@@ -3,10 +3,17 @@ CFLAGS=-g -Wall -Werror
 
 OBJECTS =
 
+random: $(OBJECTS) ./build/RandomGraphs.o
+	g++ -o ./build/RandomGraphs ./build/RandomGraphs.o $(OBJECTS) -g
+
 build: $(OBJECTS) ./build/ShannonSwitching.o
 	g++ -o ./build/ShannonSwitching ./build/ShannonSwitching.o $(OBJECTS) -g
 
 ./build/ShannonSwitching.o: ./src/ShannonSwitching.cpp
+	mkdir -p build
+	g++ -o $@ -c $(CFLAGS) $<
+
+./build/RandomGraphs.o: ./src/RandomGraph.cpp
 	mkdir -p build
 	g++ -o $@ -c $(CFLAGS) $<
 

@@ -1,7 +1,9 @@
 #include <utility>
 #include <list>
 #include <vector>
-
+#include <queue>
+#include <random>
+#include <time.h>
 
 #pragma once
 
@@ -47,6 +49,7 @@ struct Edge {
 
 template<typename V, typename E>
 class Graph {
+private:
 public:    
     virtual void AddVertex(V vert) = 0;
 
@@ -64,4 +67,33 @@ public:
 
     virtual EdgeCost<E> GetEdge(V src, V dst) = 0;
 
+    int GetConnectedComponents()
+    {
+        std::vector<V> unvisited = GetVertices();
+        std::set<V> visited{};
+        std::queue<V> todo{};
+
+        V components = 0;
+        for(V v : unvisited)
+        {
+            if(visited.count(v)) continue;
+
+            ++components;
+            todo.push(v);
+            while(!todo.empty())
+            {
+                int next = todo.front();
+                todo.pop();
+                visited.insert(next);
+                for(int neighbor : GetNeighbors(next))
+                {
+                    if(!visited.count(neighbor))
+                    {
+                        todo.push(neighbor);
+                    }
+                }
+            }
+        }
+        return components;
+    }
 };

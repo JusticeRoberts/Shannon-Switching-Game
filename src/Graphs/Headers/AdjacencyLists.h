@@ -58,6 +58,42 @@ public:
     std::map<std::pair<V, V>, EdgeCost<E>> getEdges() {
         return edges;
     }
+    
+    /**
+     * Generates a random graph
+     * 
+     * @param nodes Number of vertices in the graph
+     * @param linkProbability Probability that two vertices will form a link
+     * @returns an AdjacencyList representation of the random graph
+     */
+    static AdjacencyLists<int,int>& GenerateRandomGraph(int nodes, float linkProbability)
+    {
+        int precision = 1;
+        float precision_estimator = linkProbability;
+        while(int(precision_estimator) < precision_estimator)
+        {
+            precision_estimator *= 10;
+            precision *= 10;
+        }
+
+        AdjacencyLists<int, int> * graph = new AdjacencyLists<int, int>{false, false};
+
+        for(int i = 0; i < nodes; ++i)
+        {
+            graph->AddVertex(i);
+            for(int j = 0; j < i; ++j)
+            {
+                int randInt = rand() % precision;
+                if(randInt < linkProbability * precision)
+                {
+                    graph->AddEdge(i, j, false);
+                }
+            }
+        }
+
+        return *graph;
+    }
+
 };
 
 // ====================================================================
