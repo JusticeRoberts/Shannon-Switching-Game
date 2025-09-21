@@ -1,3 +1,4 @@
+#include <set>
 #include <utility>
 #include <list>
 #include <vector>
@@ -95,5 +96,9 @@ public:
             }
         }
         return components;
+    }
+
+    virtual ~Graph() {
+
     }
 };

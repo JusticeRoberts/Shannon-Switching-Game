@@ -66,7 +66,7 @@ public:
      * @param linkProbability Probability that two vertices will form a link
      * @returns an AdjacencyList representation of the random graph
      */
-    static AdjacencyLists<int,int>& GenerateRandomGraph(int nodes, float linkProbability)
+    static AdjacencyLists<int,int>* GenerateRandomGraph(int nodes, float linkProbability)
     {
         int precision = 1;
         float precision_estimator = linkProbability;
@@ -91,9 +91,13 @@ public:
             }
         }
 
-        return *graph;
+        return graph;
     }
 
+
+    ~AdjacencyLists<V, E>() {
+        
+    }
 };
 
 // ====================================================================
