@@ -95,7 +95,7 @@ public:
     }
 
 
-    ~AdjacencyLists<V, E>() {
+    ~AdjacencyLists() {
         
     }
 };
